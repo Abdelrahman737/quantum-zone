@@ -1,0 +1,54 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+venv/
+env/
+.venv/
+
+# ========================
+# Environment & Secrets
+# ========================
+.env
+.env.local
+.env.production
+
+# ========================
+# Local project files
+# ========================
+Database/
+Plans/
+
+
+# ========================
+# IDE & OS
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# Uploads (user content)
+# ========================
+Backend/uploads/products/*
+Backend/uploads/variants/*
+!Backend/uploads/products/.gitkeep
+!Backend/uploads/variants/.gitkeep
+
+# ========================
+# Logs & Misc
+# ========================
+*.log
+*.tmp
