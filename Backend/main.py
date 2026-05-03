@@ -1,5 +1,8 @@
+from fastapi import Depends
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from database import get_db
+from routes.products import router as products_router
 
 app = FastAPI(
     title = 'Quantum Zone API',
@@ -15,28 +18,19 @@ app.add_middleware(
     allow_headers = ['*']
 )
 
+app.include_router(products_router)
+
 @app.get('/')
 def root():
     return {'message': 'Welcome to Quantum Zone API'}
 
 @app.get('/health')
-def health_check():
-    import mysql.connector
-    from config import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
+def health_check(db=Depends(get_db)):
+    cursor = db.cursor(dictionary=True)
 
     try:
-        connection = mysql.connector.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            database=DB_NAME
-        )
-        cursor = connection.cursor()
-        cursor.execute('SELECT 1')
-        cursor.fetchone()
-        cursor.close()
-        connection.close()
+        cursor.execute("""SELECT * FROM products""")
+        products = cursor.fetchall()
 
         return {"status": "healthy", "database": "connected"}
     except Exception as e:
