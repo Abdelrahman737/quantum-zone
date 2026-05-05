@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_db
 from routes.products import router as products_router
+from routes.auth_routes import router as auth_router
 
 app = FastAPI(
     title = 'Quantum Zone API',
@@ -19,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(products_router)
+app.include_router(auth_router)
 
 @app.get('/')
 def root():
